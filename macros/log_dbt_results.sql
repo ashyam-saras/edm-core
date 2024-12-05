@@ -1,7 +1,7 @@
 {% macro log_dbt_results(results) %}
     -- depends_on: {{ ref('dbt_results') }}
     {%- if execute -%}
-        {%- set parsed_results = parse_dbt_results(results) -%}
+        {%- set parsed_results = edm_core.parse_dbt_results(results) -%}
         {%- if parsed_results | length  > 0 -%}
             {% set insert_dbt_results_query -%}
                 insert into {{var('raw_database')}}.{{var('audit_schema')}}.dbt_results
